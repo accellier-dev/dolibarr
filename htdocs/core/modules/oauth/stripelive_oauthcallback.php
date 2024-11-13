@@ -2,6 +2,7 @@
 /* Copyright (C) 2022       Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2019       Thibault FOUCART     <support@ptibogxiv.net>
  * Copyright (C) 2024		MDW							<mdeweerd@users.noreply.github.com>
+ * Copyright (C) 2024       Frédéric France         <frederic.france@free.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +27,15 @@
 // Load Dolibarr environment
 require '../../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/includes/OAuth/bootstrap.php';
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var Translate $langs
+ * @var User $user
+ *
+ * @var string $dolibarr_main_url_roott
+ */
+
 use OAuth\Common\Storage\DoliStorage;
 use OAuth\Common\Consumer\Credentials;
 
@@ -168,6 +178,7 @@ if (GETPOST('code')) {     // We are coming from oauth provider page
 		if ($apiService === null) {
 			dol_syslog("No API Service", LOG_ERR);
 		} else {
+			'@phan-var-force OAuth\OAuth2\Service\AbstractService|OAuth\OAuth1\Service\AbstractService $apiService';
 			$url = $apiService->getAuthorizationUri(array('state' => GETPOST('state')));
 		}
 	} else {

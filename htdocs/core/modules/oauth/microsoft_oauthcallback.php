@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2022       Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2015       Frederic France      <frederic.france@free.fr>
+ * Copyright (C) 2015-2024  Frédéric France      <frederic.france@free.fr>
  * Copyright (C) 2024		MDW							<mdeweerd@users.noreply.github.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -26,6 +26,15 @@
 // Load Dolibarr environment
 require '../../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/includes/OAuth/bootstrap.php';
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var Translate $langs
+ * @var User $user
+ *
+ * @var string $dolibarr_main_url_roott
+ */
+
 use OAuth\Common\Storage\DoliStorage;
 use OAuth\Common\Consumer\Credentials;
 
@@ -172,7 +181,7 @@ if (GETPOST('code') || GETPOST('error')) {     // We are coming from oauth provi
 			// Microsoft is a service that does not need state to be stored as second parameter of requestAccessToken
 
 			//print $token->getAccessToken().'<br><br>';
-			//print $token->getExtraParams()['id_token'].'<br>';
+			//print $token->getExtraParams()['id_token'].'<br><br>';
 			//print $token->getRefreshToken().'<br>';exit;
 
 			setEventMessages($langs->trans('NewTokenStored'), null, 'mesgs'); // Stored into object managed by class DoliStorage so into table oauth_token
